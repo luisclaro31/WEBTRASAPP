@@ -9,6 +9,12 @@ Route::group(['before' => 'guest'], function () {
 
 });
 
+Route::group(['before' => 'auth'], function () {
 
-Route::get('home',['as' => 'home','uses' => 'HomeController@index']);
+    Route::get('home',['as' => 'inicio','uses' => 'HomeController@index']);
+
+});
+
+Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@logout' ]);
+
 

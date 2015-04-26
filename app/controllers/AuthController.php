@@ -13,6 +13,33 @@ class AuthController extends \BaseController {
         return View::make('login');
 	}
 
+    public function login()
+    {
+
+        $data = Input::only('email','password','remember');
+
+        $credentials = ['email' => $data['email'], 'password' => $data['password'], ];
+
+        if (Auth::attempt($credentials, $data['remember']))
+        {
+
+            return Redirect::route('home');
+
+        }
+
+        return Redirect::back()->with('login_error', 1);
+
+    }
+
+    public function logout()
+    {
+
+        Auth::logout();
+
+        return Redirect::route('home');
+
+    }
+
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /auth/create
@@ -21,7 +48,7 @@ class AuthController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+        return View::make('home');
 	}
 
 	/**

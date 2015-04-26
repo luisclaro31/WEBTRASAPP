@@ -42,23 +42,30 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        {{ Form::open(['route' => 'login','id'=>'loginform', 'action'=>'login', 'method' => 'POST', 'role' => 'form','novalidate'])  }}
+                            @if ( Session::has('login_error'))
+                                <p><h4><span class="label label-danger">El nombre de username o la contraseña no son correctos.</span></h4></p>
+                            @else
+                                <p>Introduzca username y contraseña para continuar.</p>
+                            @endif
                             <fieldset>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>{{ Form::email('email',null, ['id'=>'username','class' =>'form-control','placeholder' => 'username', 'autofocus']) }}
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>{{  Form::password('password',['id'=>'password','class' => 'form-control', 'placeholder' => 'password']) }}
                                 </div>
                                 <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    <label class="remember-me">
+                                        {{ Form::checkbox('remember') }}
+                                            Recordarme
                                     </label>
                                 </div>
+
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="{{ route('home')  }}" class="btn btn-lg btn-success btn-block">Login</a>
+                                <div class="pull-center text" ><input  class="btn btn-lg btn-success btn-block" value="Acceder" type="submit">
                             </fieldset>
-                        </form>
+                        {{  Form::close()  }}
                     </div>
                 </div>
             </div>
